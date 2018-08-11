@@ -140,6 +140,22 @@ describe "LinkedList" do
     end
 
     describe "insert_ascending" do
+        it "inserts the value to head if linked list is empty" do
+            @list.insert_ascending(1)
+
+            @list.head.data.must_equal 1
+        end
+
+        it "inserts the value to right position if linked list is not empty" do
+            @list.insert_ascending(2)
+            @list.insert_ascending(3)
+            @list.insert_ascending(1)
+
+            @list.head.data.must_equal 1
+            @list.head.next.data.must_equal 2
+            @list.head.next.next.data.must_equal 3
+            @list.length.must_equal 3
+        end
     end
 
     describe "visit" do

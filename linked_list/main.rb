@@ -88,7 +88,33 @@ class LinkedList
     end
 
     # method to insert a new node with specific input data value, assuming the linked list is sorted in ascending order.
-    def insert_ascending(node)
+    def insert_ascending(value)
+        new_node = Node.new(value)
+
+        if @length == 0
+            @head = new_node
+            @length += 1
+        elsif value <= @head.data
+            new_node.next = @head
+            @head = new_node
+            @length += 1
+        else
+            current = @head
+
+            while current.next != nil
+                if current.next.data > value
+                    new_node.next = current.next
+                    current.next = new_node
+                    @length += 1
+                    return
+                else
+                    current = current.next
+                end
+            end
+
+            current.next = new_node
+            @length += 1
+        end
     end
 
     # method to print all the values in the linked list
