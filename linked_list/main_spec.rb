@@ -125,6 +125,18 @@ describe "LinkedList" do
     end
 
     describe "find_nth_from_beginning" do
+        it "raise an ArgumentError if linked list's length is smaller than n" do
+            proc { @list.find_nth_from_beginning(2) }.must_raise ArgumentError
+        end
+
+        it "returns the right node when linked list's length is equal to or larger than n" do
+            @list.insert(1)
+            @list.insert(2)
+            @list.insert(3)
+
+            @list.find_nth_from_beginning(1).must_equal 3
+            @list.find_nth_from_beginning(3).must_equal 1 
+        end
     end
 
     describe "insert_ascending" do
