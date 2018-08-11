@@ -159,6 +159,13 @@ describe "LinkedList" do
     end
 
     describe "visit" do
+        it "prints all values in the linked list" do
+            10.times do |i|
+                @list.insert_ascending(i)
+            end
+
+            @list.visit.must_equal "0 1 2 3 4 5 6 7 8 9 "
+        end
     end
 
     describe "delete" do

@@ -119,6 +119,15 @@ class LinkedList
 
     # method to print all the values in the linked list
     def visit
+        current = @head
+        output =""
+        
+        while current != nil
+            output += current.data.to_s + " "
+            current = current.next
+        end
+
+        return output
     end
 
     # method to delete the first node found with the specified value taken as input.
