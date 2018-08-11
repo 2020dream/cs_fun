@@ -106,6 +106,22 @@ describe "LinkedList" do
     end
 
     describe "find_min" do
+        it "returns nil if linked list is empty" do
+            @list.find_min.must_equal nil
+        end
+
+        it "returns the only value if linked list has only one node" do
+            @list.insert(1)
+            @list.find_min.must_equal 1
+        end
+
+        it "returns the min value if linked list has more than one mode" do
+            @list.insert(3)
+            @list.insert(2)
+            @list.insert(1)
+            
+            @list.find_min.must_equal 1
+        end
     end
 
     describe "find_nth_from_beginning" do

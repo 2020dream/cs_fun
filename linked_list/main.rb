@@ -61,6 +61,18 @@ class LinkedList
 
     # method to return the min value in the linked list. Returns the data value and not the node.
     def find_min
+        return nil if @length == 0
+
+        current = @head
+        min = current.data
+        while current.next != nil
+            if current.next.data < min
+                min = current.next.data
+            end
+            current = current.next
+        end
+
+        return min
     end
 
     # method to return the value of the nth element from the beginning. n is the input to the method. Assume indexing starts at 0 while counting to n.
