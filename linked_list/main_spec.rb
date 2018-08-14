@@ -125,7 +125,7 @@ describe "LinkedList" do
     end
 
     describe "find_nth_from_beginning" do
-        it "raise an ArgumentError if linked list's length is smaller than n" do
+        it "raise an ArgumentError if linked list's length is smaller than or equal to n" do
             proc { @list.find_nth_from_beginning(2) }.must_raise ArgumentError
         end
 
@@ -134,8 +134,8 @@ describe "LinkedList" do
             @list.insert(2)
             @list.insert(3)
 
-            @list.find_nth_from_beginning(1).must_equal 3
-            @list.find_nth_from_beginning(3).must_equal 1 
+            @list.find_nth_from_beginning(1).must_equal 2
+            @list.find_nth_from_beginning(2).must_equal 1 
         end
     end
 
@@ -169,15 +169,87 @@ describe "LinkedList" do
     end
 
     describe "delete" do
+        it "deletes the first node found with the specificed value taken as input and returns true" do
+            @list.insert(3)
+            @list.insert(2)
+            @list.insert(1)
+            
+            @list.delete(3).must_equal true
+            @list.length.must_equal 2
+        end
+
+        it "return false if node with the specificed value is not found" do
+            @list.insert(3)
+            @list.insert(2)
+            @list.insert(1)
+            
+            @list.delete(4).must_equal false
+            @list.length.must_equal 3
+        end
+
+        it "return false if linked list is empty" do
+            @list.delete(1).must_equal false
+            @list.length.must_equal 0
+        end
     end
 
     describe "reverse" do
+        it "reverses the singly linked list" do
+            @list.insert(3)
+            @list.insert(2)
+            @list.insert(1)
+
+            @list.reverse
+
+            @list.head.data.must_equal 3
+            @list.head.next.data.must_equal 2
+            @list.head.next.next.data.must_equal 1
+        end
+
+        it "keeps the same singly linked list if length is 1" do
+            @list.insert(1)
+
+            @list.reverse
+
+            @list.head.data.must_equal 1
+        end
     end
 
     describe "find_middle_value" do
+        it "returns the value at the middle element in the singly linked list if node count is odd" do
+            5.times do |i|
+                @list.insert(i)
+            end
+
+            @list.find_middle_value.must_equal 2
+        end
+
+        it "returns the first middle value in the singly linked list if node count is even" do
+            10.times do |i|
+                @list.insert(i)
+            end
+
+            @list.find_middle_value.must_equal 5
+        end
+
+        it "returns nil if the linked list is empty" do
+            @list.find_middle_value.must_equal nil
+        end
     end
 
     describe "find_nth_from_end" do
+        it "raise an ArgumentError if linked list's length is smaller than or equal to n" do
+            proc { @list.find_nth_from_end(2) }.must_raise ArgumentError
+        end
+
+        it "returns the right node when linked list's length is equal to or larger than n" do
+            @list.insert(1)
+            @list.insert(2)
+            @list.insert(3)
+
+            @list.find_nth_from_end(1).must_equal 2
+            @list.find_nth_from_end(2).must_equal 3 
+        end
     end
 
     describe "has_cycle" do
