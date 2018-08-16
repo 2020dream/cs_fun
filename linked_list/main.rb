@@ -202,6 +202,19 @@ class LinkedList
 
     # Checks if the linked list has a cycle. A cycle exists if any node in the linked list links to a node already visited. Returns true if a cycle is found, false otherwise.
     def has_cycle
+        return false if @length < 2
+
+        current1 = @head
+        current2 = @head
+        until current2 == nil || current2.next == nil
+            current1 = current1.next
+            current2 = current2.next.next
+            if current1 == current2
+                return true
+            end
+        end
+
+        return false
     end
 
 end

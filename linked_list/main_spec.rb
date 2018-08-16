@@ -253,6 +253,29 @@ describe "LinkedList" do
     end
 
     describe "has_cycle" do
+        it "returns false if number of nodes in the linked list is 0 or 1" do
+            @list.has_cycle.must_equal false
+
+            @list.insert(1)
+            @list.has_cycle.must_equal false
+        end
+
+        it "returns true if the linked list has a cycle" do
+            3.times do |i|
+                @list.insert(i)
+            end
+            @list.head.next.next.next = @list.head
+
+            @list.has_cycle.must_equal true            
+        end
+
+        it "returns false if the linked list has more than one node but no cycle" do
+            5.times do |i|
+                @list.insert(i)
+            end
+
+            @list.has_cycle.must_equal false
+        end
     end
 
 end
