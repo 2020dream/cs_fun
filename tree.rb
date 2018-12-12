@@ -12,13 +12,13 @@ end
 class BinarySearchTree
     attr_reader :root
 
-    def initialize(root_node)
-        @root = root_node
+    def initialize
+        @root = nil
     end
 
     # Print elements inorder
     def print_inorder
-        inorder_helper(root)
+        inorder_helper(@root)
     end
 
     def inorder_helper(node)
@@ -33,7 +33,7 @@ class BinarySearchTree
 
     # Search element
     def search(value)
-        return search_helper(root, value) ? true : false
+        return search_helper(@root, value) ? true : false
     end
 
     def search_helper(node, value)
@@ -49,21 +49,43 @@ class BinarySearchTree
             search_helper(node.left, value)
         end
     end
+
+    # Insert element
+    def insert(value)
+        if @root == nil
+            @root = Node.new(value)
+            return
+        end
+        return insert_helper(@root, value)
+    end
+
+    def insert_helper(current, value)
+        if value <= current.value
+            if current.left != nil
+                return insert_helper(current.left, value)
+            else
+                current.left = Node.new(value)
+            end
+        else
+            if current.right != nil
+                return insert_helper(current.right, value)
+            else
+                current.right = Node.new(value)
+            end
+        end
+    end
 end
 
-node_1 = Node.new(1)
-node_2 = Node.new(2)
-node_3 = Node.new(3)
-node_4 = Node.new(4)
-node_5 = Node.new(5)
+# Use preordered elements to create bst
+preorder_elements = [2, 1, 4, 3, 5]
+bst = BinarySearchTree.new
+preorder_elements.each do |e|
+    bst.insert(e)
+end
 
-bst = BinarySearchTree.new(node_2)
-node_2.left = node_1
-node_2.right = node_4
-node_4.left = node_3
-node_4.right = node_5
-
+# Print all elements inorder
 bst.print_inorder
-puts bst.search(1)
-puts bst.search(10)
 
+# Search value in bst
+puts bst.search(1)
+puts bst.search(-1)
